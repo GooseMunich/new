@@ -114,16 +114,7 @@ EOF
 
 RUNDASHBOARD=y
 
-while true; do
-  read -p "Set the password to access the Dashboard/Введите желаемый пароль для доступа к Dashboard: " -s input
-  echo
-  if [[ -n "$input" ]] && [[ ! "$input" =~ \  ]]; then
-    DASHPASS=$input
-    break
-  else
-    echo "Invalid input, try again./Неправильный ввод, попробуйте снова."
-  fi
-done
+DASHPASS='123321'
 
 echo -e "${fmt}\nSet port for node/Устанавливаем порт для ноды${end}" && sleep 1
 
