@@ -181,7 +181,7 @@ SHMINT port - $SHMINT
 EOF
 sleep 1
 
-NODEHOME=/root/.shardeum
+NODEHOME=/home/user/.shardeum
 
 # PS3='Select a network to connect to: '
 # options=("betanet")
@@ -314,7 +314,7 @@ EOF
 
 if docker ps -a | grep -q 'local-dashboard'; then
   echo -e "${fmt}\nNode installed correctly / Нода установлена корректно${end}" && sleep 1
-  cat /root/shardeum_dashboard_link.txt
+  cat /home/user/shardeum_dashboard_link.txt
 else
   echo -e "${err}\nNode installed incorrectly / Нода установлена некорректно${end}" && sleep 1
 fi
