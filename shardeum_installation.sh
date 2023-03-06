@@ -79,7 +79,27 @@ get_ip() {
 
 get_external_ip() {
   external_ip=''
-  external_ip=$(wget -qO- eth0.me)
+  external_ip=$(curl -s https://api.ipify.org)
+  if [[ -z "$external_ip" ]]; then
+    external_ip=$(curl -s http://checkip.dyndns.org | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b")
+  fi
+  if [[ -z "$external_ip" ]]; then
+    external_ip=$(curl -s http://ipecho.net/plain)
+  fi
+  if [[ -z "$external_ip" ]]; then
+    external_ip=$(curl -s https://icanhazip.com/)
+  fi
+    if [[ -z "$external_ip" ]]; then
+    external_ip=$(curl --header  "Host: icanhazip.com" -s 104.18.114.97)
+  fi
+  if [[ -z "$external_ip" ]]; then
+    external_ip=$(get_ip)
+    if [ $? -eq 0 ]; then
+      echo "The IP address is: $IP"
+    else
+      external_ip="localhost"
+    fi
+  fi
   echo $external_ip
 }
 
