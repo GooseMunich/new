@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-curl -s "https://nodes.fackblock.com/api/logo.sh" | sh && sleep 2
-
-fmt=`tput setaf 45`
-end="\e[0m\n"
-err="\e[31m"
-scss="\e[32m"
-
 #docker and docker-compose installation
 sudo wget https://raw.githubusercontent.com/fackNode/requirements/main/docker.sh && chmod +x docker.sh && ./docker.sh
 sudo apt install git -y
@@ -86,27 +79,7 @@ get_ip() {
 
 get_external_ip() {
   external_ip=''
-  external_ip=$(curl -s https://api.ipify.org)
-  if [[ -z "$external_ip" ]]; then
-    external_ip=$(curl -s http://checkip.dyndns.org | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b")
-  fi
-  if [[ -z "$external_ip" ]]; then
-    external_ip=$(curl -s http://ipecho.net/plain)
-  fi
-  if [[ -z "$external_ip" ]]; then
-    external_ip=$(curl -s https://icanhazip.com/)
-  fi
-    if [[ -z "$external_ip" ]]; then
-    external_ip=$(curl --header  "Host: icanhazip.com" -s 104.18.114.97)
-  fi
-  if [[ -z "$external_ip" ]]; then
-    external_ip=$(get_ip)
-    if [ $? -eq 0 ]; then
-      echo "The IP address is: $IP"
-    else
-      external_ip="localhost"
-    fi
-  fi
+  external_ip=$(wget -qO- eth0.me)
   echo $external_ip
 }
 
@@ -181,7 +154,7 @@ SHMINT port - $SHMINT
 EOF
 sleep 1
 
-NODEHOME=/root/.shardeum
+NODEHOME=/home/user/.shardeum
 
 # PS3='Select a network to connect to: '
 # options=("betanet")
@@ -314,7 +287,7 @@ EOF
 
 if docker ps -a | grep -q 'local-dashboard'; then
   echo -e "${fmt}\nNode installed correctly / Нода установлена корректно${end}" && sleep 1
-  cat /root/shardeum_dashboard_link.txt
+  cat /home/user/shardeum_dashboard_link.txt
 else
   echo -e "${err}\nNode installed incorrectly / Нода установлена некорректно${end}" && sleep 1
 fi
