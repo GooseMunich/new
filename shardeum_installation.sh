@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-curl -s "https://nodes.fackblock.com/api/logo.sh" | sh && sleep 2
-
-fmt=`tput setaf 45`
-end="\e[0m\n"
-err="\e[31m"
-scss="\e[32m"
-
 #docker and docker-compose installation
 sudo wget https://raw.githubusercontent.com/fackNode/requirements/main/docker.sh && chmod +x docker.sh && ./docker.sh
 sudo apt install git -y
