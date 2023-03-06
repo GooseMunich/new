@@ -9,15 +9,6 @@ read -p "During this early stage of Betanet the Shardeum team will be collecting
 This is only temporary and will be discontinued as we get closer to mainnet.
 Thanks for running a node and helping to make Shardeum better.
 
-By running this installer, you agree to allow the Shardeum team to collect this data. (y/n)?: " WARNING_AGREE
-WARNING_AGREE=${WARNING_AGREE:-y}
-
-if [ $WARNING_AGREE != "y" ];
-then
-  echo "Diagnostic data collection agreement not accepted. Exiting installer."
-  exit
-fi
-
 # Check all things that will be needed for this script to succeed like access to docker and docker-compose
 # If any check fails exit with a message on what the user needs to do to fix the problem
 command -v git >/dev/null 2>&1 || { echo >&2 "'git' is required but not installed."; exit 1; }
@@ -99,17 +90,6 @@ cat << EOF
 EOF
 
 RUNDASHBOARD=y
-
-while true; do
-  read -p "Set the password to access the Dashboard/Введите желаемый пароль для доступа к Dashboard: " -s input
-  echo
-  if [[ -n "$input" ]] && [[ ! "$input" =~ \  ]]; then
-    DASHPASS=$input
-    break
-  else
-    echo "Invalid input, try again./Неправильный ввод, попробуйте снова."
-  fi
-done
 
 echo -e "${fmt}\nSet port for node/Устанавливаем порт для ноды${end}" && sleep 1
 
@@ -210,7 +190,7 @@ cat >./.env <<EOL
 APP_IP=auto
 APP_SEEDLIST=${APPSEEDLIST}
 APP_MONITOR=${APPMONITOR}
-DASHPASS=${DASHPASS}
+DASHPASS=12345
 DASHPORT=${DASHPORT}
 SERVERIP=${SERVERIP}
 LOCALLANIP=${LOCALLANIP}
