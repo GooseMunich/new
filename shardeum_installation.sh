@@ -1,9 +1,29 @@
 #!/usr/bin/env bash
 set -e
 
+curl -s "https://nodes.fackblock.com/api/logo.sh" | sh && sleep 2
+
+fmt=`tput setaf 45`
+end="\e[0m\n"
+err="\e[31m"
+scss="\e[32m"
+
 #docker and docker-compose installation
 sudo wget https://raw.githubusercontent.com/fackNode/requirements/main/docker.sh && chmod +x docker.sh && ./docker.sh
 sudo apt install git -y
+
+read -p "During this early stage of Betanet the Shardeum team will be collecting some performance and debugging info from your node to help improve future versions of the software.
+This is only temporary and will be discontinued as we get closer to mainnet.
+Thanks for running a node and helping to make Shardeum better.
+
+By running this installer, you agree to allow the Shardeum team to collect this data. (y/n)?: " WARNING_AGREE
+WARNING_AGREE=${WARNING_AGREE:-y}
+
+if [ $WARNING_AGREE != "y" ];
+then
+  echo "Diagnostic data collection agreement not accepted. Exiting installer."
+  exit
+fi
 
 # Check all things that will be needed for this script to succeed like access to docker and docker-compose
 # If any check fails exit with a message on what the user needs to do to fix the problem
@@ -161,7 +181,7 @@ SHMINT port - $SHMINT
 EOF
 sleep 1
 
-NODEHOME=/home/user/.shardeum
+NODEHOME=/root/.shardeum
 
 # PS3='Select a network to connect to: '
 # options=("betanet")
@@ -294,7 +314,7 @@ EOF
 
 if docker ps -a | grep -q 'local-dashboard'; then
   echo -e "${fmt}\nNode installed correctly / Нода установлена корректно${end}" && sleep 1
-  cat /home/user/shardeum_dashboard_link.txt
+  cat /root/shardeum_dashboard_link.txt
 else
   echo -e "${err}\nNode installed incorrectly / Нода установлена некорректно${end}" && sleep 1
 fi
