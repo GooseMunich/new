@@ -101,26 +101,6 @@ echo -e "${fmt}\nNode port/Порт ноды - $DASHPORT${end}" && sleep 1
 
 echo "Your dashboard link - https://$(wget -qO- eth0.me):$DASHPORT" >> shardeum_dashboard_link.txt
 
-# while :; do
-#   echo "To run a validator on the Sphinx network, you will need to open two ports in your firewall."
-#   read -p "This allows p2p commnication between nodes. Enter the first port (1025-65536) for p2p comminucation (default 9001): " SHMEXT
-#   SHMEXT=${SHMEXT:-9001}
-#   [[ $SHMEXT =~ ^[0-9]+$ ]] || { echo "Enter a valid port"; continue; }
-#   if ((SHMEXT >= 1025 && SHMEXT <= 65536)); then
-#     SHMEXT=${SHMEXT:-9001}
-#   else
-#     echo "Port out of range, try again"
-#   fi
-#   read -p "Enter the second port (1025-65536) for p2p comminucation (default 10001): " SHMINT
-#   SHMINT=${SHMINT:-10001}
-#   [[ $SHMINT =~ ^[0-9]+$ ]] || { echo "Enter a valid port"; continue; }
-#   if ((SHMINT >= 1025 && SHMINT <= 65536)); then
-#     SHMINT=${SHMINT:-10001}
-#     break
-#   else
-#     echo "Port out of range, try again"
-#   fi
-# done
 wget https://raw.githubusercontent.com/fackNode/shardeum/main/HMEXT_SHMINT_ports_checker.sh && chmod +x HMEXT_SHMINT_ports_checker.sh && ./HMEXT_SHMINT_ports_checker.sh
 source HMEXT_SHMINT_ports_checker.sh
 SHMEXT=$HMX
