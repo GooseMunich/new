@@ -1,17 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-curl -s "https://nodes.fackblock.com/api/logo.sh" | sh && sleep 2
-
-fmt=`tput setaf 45`
-end="\e[0m\n"
-err="\e[31m"
-scss="\e[32m"
-
-#docker and docker-compose installation
-sudo wget https://raw.githubusercontent.com/fackNode/requirements/main/docker.sh && chmod +x docker.sh && ./docker.sh
-sudo apt install git -y
-
 # Check all things that will be needed for this script to succeed like access to docker and docker-compose
 # If any check fails exit with a message on what the user needs to do to fix the problem
 command -v git >/dev/null 2>&1 || { echo >&2 "'git' is required but not installed."; exit 1; }
