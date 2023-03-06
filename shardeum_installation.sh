@@ -5,10 +5,6 @@ set -e
 sudo wget https://raw.githubusercontent.com/fackNode/requirements/main/docker.sh && chmod +x docker.sh && ./docker.sh
 sudo apt install git -y
 
-read -p "During this early stage of Betanet the Shardeum team will be collecting some performance and debugging info from your node to help improve future versions of the software.
-This is only temporary and will be discontinued as we get closer to mainnet.
-Thanks for running a node and helping to make Shardeum better.
-
 # Check all things that will be needed for this script to succeed like access to docker and docker-compose
 # If any check fails exit with a message on what the user needs to do to fix the problem
 command -v git >/dev/null 2>&1 || { echo >&2 "'git' is required but not installed."; exit 1; }
@@ -111,17 +107,6 @@ EOF
 
 RUNDASHBOARD=y
 
-while true; do
-  read -p "Set the password to access the Dashboard/Введите желаемый пароль для доступа к Dashboard: " -s input
-  echo
-  if [[ -n "$input" ]] && [[ ! "$input" =~ \  ]]; then
-    DASHPASS=$input
-    break
-  else
-    echo "Invalid input, try again./Неправильный ввод, попробуйте снова."
-  fi
-done
-
 echo -e "${fmt}\nSet port for node/Устанавливаем порт для ноды${end}" && sleep 1
 
 wget https://raw.githubusercontent.com/fackNode/shardeum/main/ports_cheker.sh && chmod +x ports_cheker.sh && ./ports_cheker.sh
@@ -221,7 +206,7 @@ cat >./.env <<EOL
 APP_IP=auto
 APP_SEEDLIST=${APPSEEDLIST}
 APP_MONITOR=${APPMONITOR}
-DASHPASS=${DASHPASS}
+DASHPASS='123321'
 DASHPORT=${DASHPORT}
 SERVERIP=${SERVERIP}
 LOCALLANIP=${LOCALLANIP}
